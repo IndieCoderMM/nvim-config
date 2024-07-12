@@ -16,8 +16,7 @@ keymap.set("n", "<Leader>q", ":quit<Return>", opts)
 keymap.set("n", "<Leader>Q", ":qa<Return>", opts)
 
 -- File explorer with NvimTree
-keymap.set("n", "<Leader>f", ":NvimTreeFindFile<Return>", opts)
-keymap.set("n", "<Leader>t", ":NeoTreeToggle<Return>", opts)
+keymap.set("n", "<Leader>j", ":Neotree focus<Return>", opts)
 
 -- Tabs
 keymap.set("n", "te", ":tabedit")

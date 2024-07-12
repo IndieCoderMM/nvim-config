@@ -4,7 +4,6 @@ return {
     tag = "v0.9.1",
     opts = {
       ensure_installed = {
-        "bash",
         "html",
         "markdown",
         "markdown_inline",
@@ -14,13 +13,9 @@ return {
         "typescript",
         "css",
         "gitignore",
-        "http",
-        "svelte",
         "json",
-        "sql",
         "vim",
         "lua",
-        "xml",
       },
       query_linter = {
         enable = true,
