@@ -1,24 +1,14 @@
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+vim.g.have_nerd_font = true
+
 vim.scriptencoding = 'utf-8'
 vim.opt.encoding = 'utf-8'
 vim.opt.fileencoding = 'utf-8'
 
--- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = true
-
 -- [[ Setting options ]]
--- See `:help vim.opt`
--- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
-
--- Make line numbers default
 vim.opt.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
 vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
@@ -75,9 +65,12 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 
 -- [[ Custom Options ]]
-vim.expandtab = true
-vim.tabstop = 2
-vim.shiftwidth = 2
+vim.opt.autoindent = true
+vim.opt.smartindent = true
+vim.opt.expandtab = true
+vim.opt.smarttab = true
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
 
 vim.opt.wildignore:append { '*/node_modules/*' }
 
@@ -153,7 +146,7 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  -- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   {
     'vhyrro/luarocks.nvim',
     priority = 1000, -- Very high priority is required, luarocks.nvim should run as the first plugin in your config.
@@ -313,12 +306,12 @@ require('lazy').setup({
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        defaults = {
-          file_ignore_patterns = { 'node_modules' },
-          -- mappings = {
-          --   i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-          -- },
-        },
+        -- defaults = {
+        --   file_ignore_patterns = { 'node_modules' },
+        -- mappings = {
+        --   i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+        -- },
+        -- },
         -- pickers = {}
         extensions = {
           ['ui-select'] = {
@@ -366,6 +359,11 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
+
+      -- Shortcut for searching commits
+      vim.keymap.set('n', '<leader>sc', function()
+        builtin.git_commits {}
+      end, { desc = '[S]earch [C]ommits' })
     end,
   },
 
@@ -661,7 +659,8 @@ require('lazy').setup({
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
   },
@@ -722,9 +721,9 @@ require('lazy').setup({
         -- No, but seriously. Please read `:help ins-completion`, it is really good!
         mapping = cmp.mapping.preset.insert {
           -- Select the [n]ext item
-          ['<C-n>'] = cmp.mapping.select_next_item(),
+          -- ['<C-n>'] = cmp.mapping.select_next_item(),
           -- Select the [p]revious item
-          ['<C-p>'] = cmp.mapping.select_prev_item(),
+          -- ['<C-p>'] = cmp.mapping.select_prev_item(),
 
           -- Scroll the documentation window [b]ack / [f]orward
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -733,13 +732,13 @@ require('lazy').setup({
           -- Accept ([y]es) the completion.
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet.
-          ['<C-y>'] = cmp.mapping.confirm { select = true },
+          -- ['<C-y>'] = cmp.mapping.confirm { select = true },
 
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
-          --['<CR>'] = cmp.mapping.confirm { select = true },
-          --['<Tab>'] = cmp.mapping.select_next_item(),
-          --['<S-Tab>'] = cmp.mapping.select_prev_item(),
+          ['<CR>'] = cmp.mapping.confirm { select = true },
+          ['<Tab>'] = cmp.mapping.select_next_item(),
+          ['<S-Tab>'] = cmp.mapping.select_prev_item(),
 
           -- Manually trigger a completion from nvim-cmp.
           --  Generally you don't need this, because nvim-cmp will display
@@ -855,7 +854,7 @@ require('lazy').setup({
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
         additional_vim_regex_highlighting = { 'ruby' },
       },
-      indent = { enable = true, disable = { 'ruby' } },
+      indent = { enable = false, disable = { 'ruby', 'lua' } },
     },
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
