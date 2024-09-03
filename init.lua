@@ -91,6 +91,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+vim.keymap.set('n', '<leader>`', '<cmd>tabnew +term<CR>', { desc = 'Open a new [T]erminal' })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -238,13 +239,16 @@ require('lazy').setup({
 
       -- Document existing key chains
       require('which-key').add {
-        { '<leader>c', group = '[C]ode' },
-        { '<leader>d', group = '[D]ocument' },
+        { '<leader>a', icon = { icon = '󰛢', color = 'azure' } },
+        { '<leader>c', group = '[C]ode', icon = { icon = '󰅱', color = 'green' } },
+        { '<leader>d', group = '[D]ocument', icon = { icon = '󰅩', color = 'yellow' } },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { '<leader>g', group = 'Lazy[G]it', icon = { icon = '󰊢', color = 'red' } },
+        { '<leader>`', icon = { icon = '', color = 'orange' } },
       }
     end,
   },
@@ -721,9 +725,9 @@ require('lazy').setup({
         -- No, but seriously. Please read `:help ins-completion`, it is really good!
         mapping = cmp.mapping.preset.insert {
           -- Select the [n]ext item
-          -- ['<C-n>'] = cmp.mapping.select_next_item(),
+          ['<C-n>'] = cmp.mapping.select_next_item(),
           -- Select the [p]revious item
-          -- ['<C-p>'] = cmp.mapping.select_prev_item(),
+          ['<C-p>'] = cmp.mapping.select_prev_item(),
 
           -- Scroll the documentation window [b]ack / [f]orward
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -737,8 +741,8 @@ require('lazy').setup({
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
           ['<CR>'] = cmp.mapping.confirm { select = true },
-          ['<Tab>'] = cmp.mapping.select_next_item(),
-          ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+          -- ['<Tab>'] = cmp.mapping.select_next_item(),
+          -- ['<S-Tab>'] = cmp.mapping.select_prev_item(),
 
           -- Manually trigger a completion from nvim-cmp.
           --  Generally you don't need this, because nvim-cmp will display
@@ -773,10 +777,18 @@ require('lazy').setup({
             -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
             group_index = 0,
           },
+          -- { name = 'copilot', group_index = 1 },
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
         },
+        -- formatting = {
+        --   format = cmp.cmp_format {
+        --     mode = 'symbol',
+        --     max_width = 50,
+        --     symbol_map = { Copilot = "'" },
+        --   },
+        -- },
       }
     end,
   },
@@ -875,7 +887,7 @@ require('lazy').setup({
   --
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
-  require 'kickstart.plugins.lint',
+  -- require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
