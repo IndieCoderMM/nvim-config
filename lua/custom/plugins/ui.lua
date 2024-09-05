@@ -4,7 +4,26 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('lualine').setup {
-        options = { theme = 'seoul256' },
+        options = { theme = 'codedark', component_separators = '' },
+        sections = {
+          lualine_b = {
+            { 'branch', icon = { '' } },
+          },
+          lualine_c = {
+            'diagnostics',
+          },
+          lualine_x = {
+            -- {
+            --   'filetype',
+            --   colored = true,
+            --   icon_only = true,
+            --   align = 'right',
+            -- },
+            'diff',
+            'filename',
+            'window',
+          },
+        },
       }
     end,
   },

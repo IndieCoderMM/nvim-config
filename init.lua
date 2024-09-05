@@ -239,7 +239,6 @@ require('lazy').setup({
 
       -- Document existing key chains
       require('which-key').add {
-        { '<leader>a', icon = { icon = '󰛢', color = 'azure' } },
         { '<leader>c', group = '[C]ode', icon = { icon = '󰅱', color = 'green' } },
         { '<leader>d', group = '[D]ocument', icon = { icon = '󰅩', color = 'yellow' } },
         { '<leader>r', group = '[R]ename' },
@@ -249,6 +248,7 @@ require('lazy').setup({
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
         { '<leader>g', group = 'Lazy[G]it', icon = { icon = '󰊢', color = 'red' } },
         { '<leader>`', icon = { icon = '', color = 'orange' } },
+        { ';a', icon = { icon = '󰛢', color = 'azure' } },
       }
     end,
   },
@@ -777,7 +777,7 @@ require('lazy').setup({
             -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
             group_index = 0,
           },
-          -- { name = 'copilot', group_index = 1 },
+          { name = 'copilot' },
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
@@ -806,12 +806,24 @@ require('lazy').setup({
       vim.cmd.colorscheme 'kanagawa-dragon'
 
       -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
+      -- vim.cmd.hi 'Comment gui=none'
+
+      -- Change the hightlighting of the cursor line
+      vim.cmd.hi 'CursorLine guibg=#1F1F1F'
+      vim.cmd.hi 'CursorLineNr guifg=#98BB6C'
     end,
   },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  {
+    'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = { signs = false },
+    keys = {
+      { '<leader>st', '<cmd>TodoTelescope<CR>', desc = '[S]earch [T]odo' },
+    },
+  },
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',

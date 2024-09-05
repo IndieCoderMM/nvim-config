@@ -29,11 +29,21 @@ return {
 
       vim.keymap.set('n', ';e', function()
         toggle_telescope(harpoon:list())
-      end, { desc = 'Open harpoon window' })
+      end, { desc = 'Harpoon: Open window' })
 
-      vim.keymap.set('n', '<leader>a', function()
+      vim.keymap.set('n', ';a', function()
         harpoon:list():add()
       end, { desc = 'Harpoon: Add this file' })
+
+      vim.keymap.set('n', ';d', function()
+        harpoon:list():remove()
+      end, { desc = 'Harpoon: Remove current buffer' })
+      vim.keymap.set('n', ';p', function()
+        harpoon:list():prev()
+      end, { desc = 'Harpoon: Toggle previous buffer' })
+      vim.keymap.set('n', ';n', function()
+        harpoon:list():next()
+      end, { desc = 'Harpoon: Toggle next buffer' })
 
       -- vim.keymap.set('n', ';1', function()
       --   harpoon:list():select(1)
@@ -47,12 +57,6 @@ return {
       -- vim.keymap.set('n', ';4', function()
       --   harpoon:list():select(4)
       -- end)
-      vim.keymap.set('n', ';p', function()
-        harpoon:list():prev()
-      end, { desc = 'Harpoon: Toggle previous buffer' })
-      vim.keymap.set('n', ';n', function()
-        harpoon:list():next()
-      end, { desc = 'Harpoon: Toggle next buffer' })
     end,
   },
 }

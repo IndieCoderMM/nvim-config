@@ -5,11 +5,15 @@ return {
     event = 'InsertEnter',
     config = function()
       require('copilot').setup {
-        suggestion = { enabled = true, auto_trigger = true, keymap = {
-          accept = '<Tab>',
-        } },
-        panel = { enabled = true },
+        suggestion = { enabled = false, auto_trigger = true, keymap = {} },
+        panel = { enabled = false },
       }
+    end,
+  },
+  {
+    'zbirenbaum/copilot-cmp',
+    config = function()
+      require('copilot_cmp').setup()
     end,
   },
 }
