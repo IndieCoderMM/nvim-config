@@ -18,4 +18,8 @@ return {
       { '<leader>go', '<cmd>LazyGit<cr>', desc = 'Open LazyGit' },
     },
   },
+  {
+    'nvim-telescope/telescope-file-browser.nvim',
+    dependencies = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' },
+  },
 }

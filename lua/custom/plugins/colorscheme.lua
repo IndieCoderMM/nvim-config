@@ -13,6 +13,9 @@ return {
       -- vim.cmd.hi 'CursorLineNr guifg=#98BB6C'
       -- vim.cmd.hi 'Pmenu guibg=#2a2a2a'
     end,
+    ----------------------------
+    -- Kanagawa Config
+    ----------------------------
     config = function()
       require('kanagawa').setup {
         overrides = function(colors)
@@ -25,17 +28,17 @@ return {
             CursorLine = { bg = '#1F1F1F' },
           }
         end,
-        -- Remove background of LineNr
-        -- colors = {
-        --   theme = {
-        --     all = {
-        --       ui = {
-        --         bg_gutter = 'none',
-        --       },
-        --     },
-        --   },
-        -- },
+        colors = {
+          theme = {
+            all = {
+              ui = {
+                bg_gutter = 'none',
+              },
+            },
+          },
+        },
       }
     end,
+    -- Remove background of LineNr
   },
 }
