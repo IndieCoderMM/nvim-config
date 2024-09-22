@@ -1,18 +1,8 @@
 return {
   {
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     -- 'folke/tokyonight.nvim',
     'rebelot/kanagawa.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      -- 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'kanagawa-dragon'
-
-      -- Change the hightlighting of the cursor line
-      -- vim.cmd.hi 'CursorLine guibg=#1F1F1F'
-      -- vim.cmd.hi 'CursorLineNr guifg=#98BB6C'
-      -- vim.cmd.hi 'Pmenu guibg=#2a2a2a'
-    end,
     ----------------------------
     -- Kanagawa Config
     ----------------------------
@@ -28,6 +18,7 @@ return {
             CursorLine = { bg = '#1F1F1F' },
           }
         end,
+        -- Remove background of LineNr
         colors = {
           theme = {
             all = {
@@ -38,7 +29,7 @@ return {
           },
         },
       }
+      vim.cmd.colorscheme 'kanagawa-dragon'
     end,
-    -- Remove background of LineNr
   },
 }

@@ -5,7 +5,7 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('lualine').setup {
-        options = { theme = 'codedark', component_separators = '' },
+        options = { theme = 'seoul256', component_separators = '' },
         sections = {
           lualine_b = {
             { 'branch', icon = { '' } },
@@ -20,6 +20,19 @@ return {
             --   icon_only = true,
             --   align = 'right',
             -- },
+            function()
+              local ok, pomo = pcall(require, 'pomo')
+              if not ok then
+                return ''
+              end
+
+              local timer = pomo.get_first_to_finish()
+              if timer == nil then
+                return ''
+              end
+
+              return '󰄉 ' .. tostring(timer)
+            end,
             'diff',
             'filename',
             'window',
@@ -32,11 +45,19 @@ return {
     'nvimdev/dashboard-nvim',
     event = 'VimEnter',
     config = function()
+      local logo = [[
+██╗███╗   ██╗██████╗ ██╗███████╗ ██████╗ ██████╗ ██████╗ ███████╗██████╗ 
+██║████╗  ██║██╔══██╗██║██╔════╝██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔══██╗
+██║██╔██╗ ██║██║  ██║██║█████╗  ██║     ██║   ██║██║  ██║█████╗  ██████╔╝
+██║██║╚██╗██║██║  ██║██║██╔══╝  ██║     ██║   ██║██║  ██║██╔══╝  ██╔══██╗
+██║██║ ╚████║██████╔╝██║███████╗╚██████╗╚██████╔╝██████╔╝███████╗██║  ██║
+╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
+      ]]
+      logo = string.rep('\n', 1) .. logo .. '\n'
+
       require('dashboard').setup {
         config = {
-          week_header = {
-            enable = true,
-          },
+          header = vim.split(logo, '\n'),
           shortcut = {
             { desc = '󰊳 Update', group = '@property', action = 'Lazy update', key = 'u' },
             {
@@ -70,12 +91,26 @@ return {
       { '<Tab>', '<Cmd>BufferLineCycleNext<CR>', mode = 'n', desc = 'Next tab' },
       { '<S-Tab>', '<Cmd>BufferLineCyclePrev<CR>', mode = 'n', desc = 'Prev tab' },
     },
-    opts = {
-      options = {
-        mode = 'tabs',
-        show_buffer_close_icons = false,
-        show_close_icon = false,
-      },
-    },
+    config = function()
+      vim.opt.termguicolors = true
+      local bufferline = require 'bufferline'
+      bufferline.setup {
+        options = {
+          mode = 'tabs',
+          show_buffer_close_icons = false,
+          show_close_icon = false,
+          themable = true,
+        },
+        highlights = {
+          tab_separator = {
+            fg = '#E46876',
+          },
+          tab_separator_selected = {
+            fg = '#E46876',
+            sp = '#E46876',
+          },
+        },
+      }
+    end,
   },
 }
