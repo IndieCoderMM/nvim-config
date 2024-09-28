@@ -5,7 +5,7 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('lualine').setup {
-        options = { theme = 'seoul256', component_separators = '' },
+        options = { theme = 'iceberg_dark', component_separators = '' },
         sections = {
           lualine_b = {
             { 'branch', icon = { '' } },
@@ -112,5 +112,13 @@ return {
         },
       }
     end,
+  },
+  {
+    'rcarriga/nvim-notify',
+    opts = {
+      timeout = 5000,
+      background_colour = '#000000',
+      render = 'wrapped-compact',
+    },
   },
 }

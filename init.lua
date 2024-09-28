@@ -6,6 +6,7 @@ vim.scriptencoding = 'utf-8'
 vim.opt.encoding = 'utf-8'
 vim.opt.fileencoding = 'utf-8'
 
+vim.opt.termguicolors = true
 -- [[ Setting options ]]
 --  For more options, you can see `:help option-list`
 vim.opt.number = true
@@ -565,22 +566,20 @@ require('lazy').setup({
         -- languages here or re-enable it for the disabled ones.
         local disable_filetypes = { c = true, cpp = true }
         return {
-          timeout_ms = 500,
+          timeout_ms = 2500,
           lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
         }
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
         go = { 'gofmt' },
-        json = { 'jq' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { 'prettierd', 'prettier', stop_after_first = true },
-        typescript = { 'prettierd', 'prettier', stop_after_first = true },
-        javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
-        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        json = { 'prettier' },
+        html = { 'prettier' },
+        markdown = { 'prettier' },
+        javascript = { 'prettier', stop_after_first = true },
+        typescript = { 'prettier', stop_after_first = true },
+        javascriptreact = { 'prettier', stop_after_first = true },
+        typescriptreact = { 'prettier', stop_after_first = true },
       },
     },
   },
@@ -608,10 +607,23 @@ require('lazy').setup({
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
-      -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-      -- - sd'   - [S]urround [D]elete [']quotes
-      -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
+      require('mini.surround').setup {
+        -- Module mappings. Use `''` (empty string) to disable one.
+        opts = {
+          mappings = {
+            add = 'ma', -- Add surrounding in Normal and Visual modes
+            delete = 'md', -- Delete surrounding
+            find = 'mf', -- Find surrounding (to the right)
+            find_left = 'mF', -- Find surrounding (to the left)
+            highlight = 'mh', -- Highlight surrounding
+            replace = 'mr', -- Replace surrounding
+            update_n_lines = 'mn', -- Update `n_lines`
+
+            suffix_last = 'l', -- Suffix to search with "prev" method
+            suffix_next = 'n', -- Suffix to search with "next" method
+          },
+        },
+      }
 
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,

@@ -1,11 +1,23 @@
 return {
+  -- lazy
   {
-    -- 'folke/tokyonight.nvim',
+    'ray-x/aurora',
+    init = function()
+      vim.g.aurora_italic = 1
+      vim.g.aurora_transparent = 1
+      vim.g.aurora_bold = 1
+    end,
+    config = function()
+      vim.cmd.colorscheme 'aurora'
+      -- override defaults
+
+      vim.api.nvim_set_hl(0, 'CursorLineNr', { underline = false, fg = 'orange1' })
+      vim.api.nvim_set_hl(0, 'NeoTreeTitleBar', { fg = 'black', bg = 'tomato' })
+    end,
+  },
+  {
     'rebelot/kanagawa.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
-    ----------------------------
-    -- Kanagawa Config
-    ----------------------------
     config = function()
       require('kanagawa').setup {
         overrides = function(colors)
@@ -29,7 +41,7 @@ return {
           },
         },
       }
-      vim.cmd.colorscheme 'kanagawa-dragon'
+      -- vim.cmd.colorscheme 'kanagawa-dragon'
     end,
   },
 }
