@@ -112,7 +112,9 @@ return {
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
       -- File browser
-      vim.keymap.set('n', '<space>sb', ':Telescope file_browser<CR>', { desc = '[S]earch file [B]rowser' })
+      vim.keymap.set('n', '<leader>sb', ':Telescope file_browser<CR>', { desc = '[S]earch file [B]rowser' })
+      -- base46 Colorschemes
+      vim.keymap.set('n', '<leader>s4', ':Telescope themes<CR>', { desc = '[S]earch base[4]6 themes' })
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.

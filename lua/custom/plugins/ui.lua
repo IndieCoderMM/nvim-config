@@ -1,46 +1,59 @@
 return {
   {
-    'nvim-lualine/lualine.nvim',
-    event = 'VeryLazy',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    'nvchad/ui',
     config = function()
-      require('lualine').setup {
-        options = { theme = 'iceberg_dark', component_separators = '' },
-        sections = {
-          lualine_b = {
-            { 'branch', icon = { '' } },
-          },
-          lualine_c = {
-            'diagnostics',
-          },
-          lualine_x = {
-            -- {
-            --   'filetype',
-            --   colored = true,
-            --   icon_only = true,
-            --   align = 'right',
-            -- },
-            function()
-              local ok, pomo = pcall(require, 'pomo')
-              if not ok then
-                return ''
-              end
-
-              local timer = pomo.get_first_to_finish()
-              if timer == nil then
-                return ''
-              end
-
-              return '󰄉 ' .. tostring(timer)
-            end,
-            'diff',
-            'filename',
-            'window',
-          },
-        },
-      }
+      require 'nvchad'
     end,
   },
+  {
+    'nvchad/base46',
+    lazy = true,
+    build = function()
+      require('base46').load_all_highlights()
+    end,
+  },
+  -- {
+  --   'nvim-lualine/lualine.nvim',
+  --   event = 'VeryLazy',
+  --   dependencies = { 'nvim-tree/nvim-web-devicons' },
+  --   config = function()
+  --     require('lualine').setup {
+  --       options = { theme = 'iceberg_dark', component_separators = '' },
+  --       sections = {
+  --         lualine_b = {
+  --           { 'branch', icon = { '' } },
+  --         },
+  --         lualine_c = {
+  --           'diagnostics',
+  --         },
+  --         lualine_x = {
+  --           -- {
+  --           --   'filetype',
+  --           --   colored = true,
+  --           --   icon_only = true,
+  --           --   align = 'right',
+  --           -- },
+  --           function()
+  --             local ok, pomo = pcall(require, 'pomo')
+  --             if not ok then
+  --               return ''
+  --             end
+  --
+  --             local timer = pomo.get_first_to_finish()
+  --             if timer == nil then
+  --               return ''
+  --             end
+  --
+  --             return '󰄉 ' .. tostring(timer)
+  --           end,
+  --           'diff',
+  --           'filename',
+  --           'window',
+  --         },
+  --       },
+  --     }
+  --   end,
+  -- },
   {
     'nvimdev/dashboard-nvim',
     event = 'VimEnter',
@@ -116,7 +129,7 @@ return {
   {
     'rcarriga/nvim-notify',
     opts = {
-      timeout = 5000,
+      timeout = 3000,
       background_colour = '#000000',
       render = 'wrapped-compact',
     },

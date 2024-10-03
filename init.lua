@@ -75,6 +75,8 @@ vim.opt.shiftwidth = 2
 
 vim.opt.wildignore:append { '*/node_modules/*' }
 
+vim.g.base46_cache = vim.fn.stdpath 'data' .. '/base46_cache/'
+
 -- Diagnostic configuration
 vim.diagnostic.config {
   signs = {
@@ -105,8 +107,26 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 vim.keymap.set('n', '<leader>`', '<cmd>tabnew +term<CR>', { desc = 'Open a new [T]erminal' })
--- Select all
 
+-- always map it in "t" i.e terminal mode too
+vim.keymap.set({ 'n', 't' }, '<A-h>', function()
+  require('nvchad.term').toggle { pos = 'sp', id = 'separateTerm' }
+end, { desc = 'Toggle [H]orizontal terminal' })
+vim.keymap.set({ 'n', 't' }, '<A-f>', function()
+  require('nvchad.term').toggle { pos = 'float', id = 'floatTerm' }
+end, { desc = 'Toggle [F]loating terminal' })
+
+-- TODO: Setup code runner
+-- vim.keymap.set('n', '<A-d>', function()
+--   require('nvchad.term').runner {
+--     pos = '',
+--     cmd = 'npm run dev',
+--     id = 'ekk',
+--     clear_cmd = false,
+--   }
+-- end)
+
+-- Select all
 vim.keymap.set('n', '<C-y>', 'ggVG', { desc = 'Select all' })
 
 -- TIP: Disable arrow keys in normal mode
@@ -193,13 +213,6 @@ require('lazy').setup({
         changedelete = { text = '▐' },
         untracked = { text = '▐' },
       },
-      -- signs = {
-      --   add = { text = '+' },
-      --   change = { text = '~' },
-      --   delete = { text = '_' },
-      --   topdelete = { text = '‾' },
-      --   changedelete = { text = '~' },
-      -- },
     },
   },
 
@@ -609,23 +622,25 @@ require('lazy').setup({
       --
       require('mini.surround').setup {
         -- Module mappings. Use `''` (empty string) to disable one.
-        opts = {
-          mappings = {
-            add = 'ma', -- Add surrounding in Normal and Visual modes
-            delete = 'md', -- Delete surrounding
-            find = 'mf', -- Find surrounding (to the right)
-            find_left = 'mF', -- Find surrounding (to the left)
-            highlight = 'mh', -- Highlight surrounding
-            replace = 'mr', -- Replace surrounding
-            update_n_lines = 'mn', -- Update `n_lines`
+        mappings = {
+          add = 'sa', -- Add surrounding in Normal and Visual modes
+          delete = 'sd', -- Delete surrounding
+          find = 'sf', -- Find surrounding (to the right)
+          find_left = 'sF', -- Find surrounding (to the left)
+          highlight = 'sh', -- Highlight surrounding
+          replace = 'sr', -- Replace surrounding
+          update_n_lines = 'sn', -- Update `n_lines`
 
-            suffix_last = 'l', -- Suffix to search with "prev" method
-            suffix_next = 'n', -- Suffix to search with "next" method
-          },
+          suffix_last = 'l', -- Suffix to search with "prev" method
+          suffix_next = 'n', -- Suffix to search with "next" method
         },
+
+        n_lines = 30, -- Number of lines to search for surroundings
       }
 
-      --  Check out: https://github.com/echasnovski/mini.nvim
+      -- Jump to filter words by a labeled char
+      --
+      require('mini.jump2d').setup()
     end,
   },
   { -- Highlight, edit, and navigate code
@@ -676,6 +691,7 @@ require('lazy').setup({
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   { import = 'custom.plugins' },
+  -- require 'custom.plugins',
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
@@ -698,5 +714,15 @@ require('lazy').setup({
   },
 })
 
+-- put this after lazy setup
+dofile(vim.g.base46_cache .. 'defaults')
+dofile(vim.g.base46_cache .. 'statusline')
+dofile(vim.g.base46_cache .. 'syntax')
+dofile(vim.g.base46_cache .. 'treesitter')
+--
+-- To load all integrations at once
+-- for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
+--   dofile(vim.g.base46_cache .. v)
+-- end
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

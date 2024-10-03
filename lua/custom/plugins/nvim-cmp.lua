@@ -27,7 +27,7 @@ local symbol_kinds = {
   Variable = '',
 }
 
-return {
+local options = {
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
@@ -165,3 +165,7 @@ return {
     end,
   },
 }
+
+-- options = vim.tbl_deep_extend('force', options, require 'nvchad.cmp')
+
+return options
