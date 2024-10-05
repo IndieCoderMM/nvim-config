@@ -715,14 +715,14 @@ require('lazy').setup({
 })
 
 -- put this after lazy setup
-dofile(vim.g.base46_cache .. 'defaults')
-dofile(vim.g.base46_cache .. 'statusline')
-dofile(vim.g.base46_cache .. 'syntax')
-dofile(vim.g.base46_cache .. 'treesitter')
+-- dofile(vim.g.base46_cache .. 'defaults')
+-- dofile(vim.g.base46_cache .. 'statusline')
+-- dofile(vim.g.base46_cache .. 'syntax')
+-- dofile(vim.g.base46_cache .. 'treesitter')
 --
 -- To load all integrations at once
--- for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
---   dofile(vim.g.base46_cache .. v)
--- end
+for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
+  dofile(vim.g.base46_cache .. v)
+end
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
