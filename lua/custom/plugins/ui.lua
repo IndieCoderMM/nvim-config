@@ -1,24 +1,11 @@
 return {
-  {
-    'nvchad/ui',
-    config = function()
-      require 'nvchad'
-    end,
-  },
-  {
-    'nvchad/base46',
-    lazy = true,
-    build = function()
-      require('base46').load_all_highlights()
-    end,
-  },
   -- {
   --   'nvim-lualine/lualine.nvim',
   --   event = 'VeryLazy',
   --   dependencies = { 'nvim-tree/nvim-web-devicons' },
   --   config = function()
   --     require('lualine').setup {
-  --       options = { theme = 'iceberg_dark', component_separators = '' },
+  --       options = { theme = 'gruvbox_dark', component_separators = '' },
   --       sections = {
   --         lualine_b = {
   --           { 'branch', icon = { '' } },
