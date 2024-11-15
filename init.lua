@@ -80,6 +80,7 @@ require('lazy').setup({
 
       -- Document existing key chains
       require('which-key').add {
+        { '<leader>a', group = '[A]pi', icon = { icon = '', color = 'red' } },
         { '<leader>c', group = '[C]ode', icon = { icon = '󰅱', color = 'green' } },
         { '<leader>d', group = '[D]ocument', icon = { icon = '󰅩', color = 'yellow' } },
         { '<leader>r', group = '[R]ename' },
