@@ -151,6 +151,7 @@ local options = {
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
+          { name = 'emoji' },
         },
         -- Add icons to the completion menu.
         ---@diagnostic disable: missing-fields
