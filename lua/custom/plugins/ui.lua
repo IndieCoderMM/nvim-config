@@ -2,6 +2,7 @@ return {
   -- {
   --   'nvim-lualine/lualine.nvim',
   --   event = 'VeryLazy',
+  --   enabled = false,
   --   dependencies = { 'nvim-tree/nvim-web-devicons' },
   --   config = function()
   --     require('lualine').setup {
@@ -44,6 +45,7 @@ return {
   {
     'nvimdev/dashboard-nvim',
     event = 'VimEnter',
+    enabled = false,
     config = function()
       local logo = [[
   ██╗███╗   ██╗██████╗ ██╗███████╗ ██████╗ ██████╗ ██████╗ ███████╗██████╗
@@ -84,41 +86,42 @@ return {
     end,
     dependencies = { { 'nvim-tree/nvim-web-devicons' } },
   },
-  {
-    'akinsho/bufferline.nvim',
-    event = 'VeryLazy',
-    keys = {
-      { '<Tab>', '<Cmd>BufferLineCycleNext<CR>', mode = 'n', desc = 'Next tab' },
-      { '<S-Tab>', '<Cmd>BufferLineCyclePrev<CR>', mode = 'n', desc = 'Prev tab' },
-    },
-    config = function()
-      vim.opt.termguicolors = true
-      local bufferline = require 'bufferline'
-      bufferline.setup {
-        options = {
-          mode = 'tabs',
-          show_buffer_close_icons = false,
-          show_close_icon = false,
-          themable = true,
-        },
-        highlights = {
-          tab_separator = {
-            fg = '#E46876',
-          },
-          tab_separator_selected = {
-            fg = '#E46876',
-            sp = '#E46876',
-          },
-        },
-      }
-    end,
-  },
-  {
-    'rcarriga/nvim-notify',
-    opts = {
-      timeout = 3000,
-      background_colour = '#000000',
-      render = 'wrapped-compact',
-    },
-  },
+  -- {
+  --   'akinsho/bufferline.nvim',
+  --   event = 'VeryLazy',
+  --   enabled = false,
+  --   keys = {
+  --     { '<Tab>', '<Cmd>BufferLineCycleNext<CR>', mode = 'n', desc = 'Next tab' },
+  --     { '<S-Tab>', '<Cmd>BufferLineCyclePrev<CR>', mode = 'n', desc = 'Prev tab' },
+  --   },
+  --   config = function()
+  --     vim.opt.termguicolors = true
+  --     local bufferline = require 'bufferline'
+  --     bufferline.setup {
+  --       options = {
+  --         mode = 'tabs',
+  --         show_buffer_close_icons = false,
+  --         show_close_icon = false,
+  --         themable = true,
+  --       },
+  --       highlights = {
+  --         tab_separator = {
+  --           fg = '#E46876',
+  --         },
+  --         tab_separator_selected = {
+  --           fg = '#E46876',
+  --           sp = '#E46876',
+  --         },
+  --       },
+  --     }
+  --   end,
+  -- },
+  -- {
+  --   'rcarriga/nvim-notify',
+  --   opts = {
+  --     timeout = 3000,
+  --     background_colour = '#000000',
+  --     render = 'wrapped-compact',
+  --   },
+  -- },
 }

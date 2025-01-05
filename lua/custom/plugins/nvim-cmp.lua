@@ -27,7 +27,7 @@ local symbol_kinds = {
   Variable = '',
 }
 
-local options = {
+local M = {
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
@@ -70,7 +70,7 @@ local options = {
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
 
-      cmp.setup {
+      local options = {
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -163,10 +163,11 @@ local options = {
         },
         ---@diagnostic enable: missing-fields
       }
+
+      options = vim.tbl_deep_extend('force', options, require 'nvchad.cmp')
+      cmp.setup(options)
     end,
   },
 }
 
--- options = vim.tbl_deep_extend('force', options, require 'nvchad.cmp')
-
-return options
+return M

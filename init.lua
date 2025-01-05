@@ -1,6 +1,8 @@
 require 'config.options'
 require 'config.keys'
 
+vim.g.base46_cache = vim.fn.stdpath 'data' .. '/base46_cache/'
+
 -- See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -451,31 +453,31 @@ require('lazy').setup({
 
       -- Status line
       --
-      local statusline = require 'mini.statusline'
+      -- local statusline = require 'mini.statusline'
       -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
+      -- statusline.setup { use_icons = vim.g.have_nerd_font }
 
       -- You can configure sections in the statusline by overriding their
       -- default behavior. For example, here we set the section for
       -- cursor location to LINE:COLUMN
       ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return '%2l:%-2v'
-      end
+      -- statusline.section_location = function()
+      -- return '%2l:%-2v'
+      -- end
 
       -- File explorer
       --
-      require('mini.files').setup {}
+      -- require('mini.files').setup {}
     end,
-    keys = {
-      {
-        ';f',
-        function()
-          MiniFiles.open(vim.api.nvim_buf_get_name(0))
-        end,
-        desc = 'Mini: Open Files for current buffer',
-      },
-    },
+    -- keys = {
+    --   {
+    --     ';f',
+    --     function()
+    --       MiniFiles.open(vim.api.nvim_buf_get_name(0))
+    --     end,
+    --     desc = 'Mini: Open Files for current buffer',
+    --   },
+    -- },
   },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -548,5 +550,8 @@ require('lazy').setup({
   },
 })
 
+for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
+  dofile(vim.g.base46_cache .. v)
+end
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
