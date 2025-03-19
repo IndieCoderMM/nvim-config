@@ -14,18 +14,33 @@ return {
       vim.keymap.set('n', '<C-x>', function()
         require('nvchad.tabufline').close_buffer()
       end, { desc = 'Close buffer' })
+      vim.keymap.set('n', '<C-q>', function()
+        require('nvchad.tabufline').closeAllBufs(false) -- excludes current buf
+      end, { desc = 'Close other buffers' })
       -- Theme picker
       vim.keymap.set('n', '<C-t>', function()
         require('nvchad.themes').open()
       end, { desc = 'Theme picker' })
 
       -- Terminal
-      vim.keymap.set({ 'n', 't' }, '<leader>`', function()
+      vim.keymap.set({ 'n', 't' }, '<leader>`f', function()
+        require('nvchad.term').toggle {
+          pos = 'float',
+          id = 'fterm',
+        }
+      end, { desc = 'Toggle [F]loat terminal' })
+      vim.keymap.set({ 'n', 't' }, '<leader>`s', function()
         require('nvchad.term').toggle {
           pos = 'sp',
           id = 'hterm',
         }
-      end, { desc = 'Theme picker' })
+      end, { desc = 'Toggle [S]plit terminal' })
+      vim.keymap.set({ 'n', 't' }, '<leader>`v', function()
+        require('nvchad.term').toggle {
+          pos = 'vsp',
+          id = 'vterm',
+        }
+      end, { desc = 'Toggle [S]plit terminal' })
     end,
   },
   'nvchad/volt',

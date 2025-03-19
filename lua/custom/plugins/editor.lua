@@ -31,6 +31,15 @@ return {
       },
     },
   },
+  { -- Highlight todo, notes, etc in comments
+    'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = { signs = false },
+    keys = {
+      { '<leader>st', '<cmd>TodoTelescope<CR>', desc = '[S]earch [T]odo' },
+    },
+  },
   {
     'jiaoshijie/undotree',
     dependencies = 'nvim-lua/plenary.nvim',
@@ -39,6 +48,11 @@ return {
       { '<leader>tu', "<cmd>lua require('undotree').toggle()<cr>", desc = '[T]oggle [U]ndo Tree' },
     },
   },
+  -- {
+  --   'barrett-ruth/import-cost.nvim',
+  --   build = 'sh install.sh yarn',
+  --   config = true,
+  -- },
   -- {
   --   'nvim-telescope/telescope-file-browser.nvim',
   --   dependencies = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' },

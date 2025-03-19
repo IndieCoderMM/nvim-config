@@ -1,14 +1,17 @@
 local M = {}
 
 M.base46 = {
-  theme = 'bearded-arc',
+  theme = 'gruvchad',
   transparency = true,
 }
 
 M.ui = {
+  cmp = {
+    style = 'atom_colored',
+  },
   statusline = {
-    theme = 'minimal',
-    separator_style = 'round',
+    theme = 'default',
+    separator_style = 'block',
   },
   tabufline = {
     order = { 'treeOffset', 'buffers', 'tabs' },
@@ -34,13 +37,9 @@ M.nvdash = {
 
 M.term = {
   winopts = {
-    number = true,
+    number = false,
     relativenumber = false,
   },
-}
-
-M.lsp = {
-  signature = true,
 }
 
 return M
